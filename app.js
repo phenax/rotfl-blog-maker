@@ -3,17 +3,16 @@ const NodeApp= require('./lib/BlogApp');
 
 const Blogs= require('./lib/Blogs');
 
-Blogs.addBlog('My First Blog', '# Just Testing\n\nAwesomeness awaits\n');
+// Blogs.addBlog('My Third Blog', '# Just Testing\n\nAwesomeness awaits\n');
 
 class App extends NodeApp {
 
 	constructor(config) {
 		super(config);
 
-		this
+		this.onError(this.errorHandler)
 			.addRoute(/^\/$/, this.indexController)
-			.addRoute(/^\/blog(.*)/, this.blogController)
-			.onError(this.errorHandler);
+			.addRoute(/^\/blog(\/(.*))?$/, this.blogController);
 	}
 
 	indexController(req, res) {
