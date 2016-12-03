@@ -1,0 +1,21 @@
+{
+  "name": "blgg",
+  "version": "0.0.0",
+  "description": "__",
+  "main": "./server/http.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "__"
+  },
+  "keywords": [
+    "__"
+  ],
+  "author": "Akshay Nair <phenax5@gmail.com>",
+  "license": "Apache-2.0"
+}
