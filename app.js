@@ -3,9 +3,7 @@ const NodeApp= require('./lib/BlogApp');
 
 const Blogs= require('./lib/Blogs');
 
-// console.log(Blogs._getRandomHash());
-
-// Blogs.addBlog('wow awesome', 'Cool colol\nawesome');
+Blogs.addBlog('My First Blog', '# Just Testing\n\nAwesomeness awaits\n');
 
 class App extends NodeApp {
 
