@@ -5,6 +5,7 @@ const Blogs= require('./lib/Blogs');
 
 // Blogs.addBlog('My Third Blog', '# Just Testing\n\nAwesomeness awaits\n');
 
+
 class App extends NodeApp {
 
 	constructor(config) {
