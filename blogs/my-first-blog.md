@@ -1,3 +1,0 @@
-# Just Testing
-
-Awesomeness awaits

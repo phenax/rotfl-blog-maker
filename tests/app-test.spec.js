@@ -39,7 +39,8 @@ describe('App Configuration', () => {
 describe('App Router', () => {
 
 	const darkSideCtrlr= (req, res) => {};
-	const darkSideUrl= '/darth-vader';
+
+	const darkSideUrl= '/darth-vader-will-rise';
 
 	beforeEach(() => {
 		app.addRoute(new RegExp(`^${darkSideUrl}$`), darkSideCtrlr);
@@ -50,9 +51,9 @@ describe('App Router', () => {
 	});
 
 
-	it('should be able to find routes', () => {
+	it('should be able to match routes', () => {
 
-		const matches= app.findRoute(darkSideUrl);
+		const matches= app.getMatchingRoute(darkSideUrl);
 
 		expect(matches).to.not.be.empty;
 
