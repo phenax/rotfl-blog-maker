@@ -1,7 +1,6 @@
 
 const NodeApp= require('./lib/BlogApp');
-
-const Blogs= require('./lib/Blogs');
+// const Blogs= require('./lib/Blogs');
 
 // Blogs.addBlog('My Third Blog', '# Just Testing\n\nAwesomeness awaits\n');
 
