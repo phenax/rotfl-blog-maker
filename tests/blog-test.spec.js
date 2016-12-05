@@ -3,7 +3,7 @@
 /* eslint-disable */
 
 const fs= require('fs');
-const { expect }= require('chai');
+const { expect, assert }= require('chai');
 
 const blogs= require('../lib/Blogs');
 
@@ -21,12 +21,15 @@ describe('Blogs configuration tests', () => {
 
 describe('Blogs API', () => {
 
-	const blogName= 'Awesome Blog';
+	let title;
 	const blogContent= 'sakfjsidghkdjfxghkjdfhjkgdhjkfghj';
 
 	beforeEach((done) => {
 
-		blogs.addBlog(blogName, blogContent, _ => done());
+		blogs.addBlog('Awesome Blog', blogContent, _title => {
+			title= _title;
+			done();
+		});
 	});
 
 
@@ -38,9 +41,39 @@ describe('Blogs API', () => {
 	});
 
 
-	it('test', () => {
+	it('should fetch the correct blog', (done) => {
 
-		// done();
+		blogs
+			.getBlog(title)
+			.then( body => {
+
+				expect(body).to.eql(blogContent);
+				done();
+			})
+			.catch( e => done(e) );
+	});
+
+
+	it('should update contents', done => {
+
+		const newContents= 'this is an awesome post\n awesomely updated';
+
+		blogs
+			.updateBlog(title, newContents)
+			.then( _ => {
+
+				blogs
+					.getBlog(title)
+					.then( body => {
+						expect(body).to.not.eql(blogContent);
+					})
+					.catch( e => done(e) );
+
+				done();
+			})
+			.catch( e => {
+				done(e.message);
+			});
 	});
 
 });
