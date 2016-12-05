@@ -8,7 +8,8 @@
   },
   "scripts": {
     "start": "node ./server/http",
-    "test": "NODE_ENV=test mocha './**/*.spec.js' -w --recursive --watch-extensions .spec.js"
+    "start:w": "nodemon ./server/http",
+    "test": "NODE_ENV=test mocha './**/*.spec.js' -w --recursive"
   },
   "repository": {
     "type": "git",
