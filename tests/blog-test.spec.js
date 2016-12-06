@@ -26,7 +26,13 @@ describe('Blogs API', () => {
 
 	beforeEach((done) => {
 
-		blogs.addBlog('Awesome Blog', blogContent, _title => {
+		blogs.addBlog('Awesome Blog', blogContent, (err, _title) => {
+
+			if(err) {
+				done(err);
+				return;
+			}
+
 			title= _title;
 			done();
 		});
