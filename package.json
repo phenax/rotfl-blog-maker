@@ -1,7 +1,7 @@
 {
-  "name": "blgg",
+  "name": "rotfl-blog-maker",
   "version": "0.0.0",
-  "description": "__",
+  "description": "A markdown blog making framework",
   "main": "./server/http.js",
   "directories": {
     "test": "tests"
@@ -9,14 +9,18 @@
   "scripts": {
     "start": "node ./server/http",
     "start:w": "nodemon ./server/http",
-    "test": "NODE_ENV=test mocha './**/*.spec.js' -w --recursive"
+    "test": "NODE_ENV=test mocha './**/*.spec.js' --recursive",
+    "test:w": "NODE_ENV=test mocha './**/*.spec.js' -w --recursive"
   },
   "repository": {
     "type": "git",
-    "url": "__"
+    "url": "https://github.com/phenax/rotfl-blog-maker"
   },
   "keywords": [
-    "__"
+    "blog",
+    "rotfl",
+    "blogging",
+    "nodejs"
   ],
   "author": "Akshay Nair <phenax5@gmail.com>",
   "license": "Apache-2.0",
