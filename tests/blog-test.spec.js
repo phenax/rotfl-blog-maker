@@ -8,7 +8,7 @@ const { expect, assert }= require('chai');
 const blogs= require('../lib/Blogs');
 
 
-describe('Blogs configuration tests', () => {
+describe('Blogs configuration and utils', () => {
 
 	it('should convert the title to file-friendly string', () => {
 
@@ -47,6 +47,7 @@ describe('Blogs API', () => {
 	});
 
 
+
 	it('should fetch the correct blog', (done) => {
 
 		blogs
@@ -71,16 +72,13 @@ describe('Blogs API', () => {
 				blogs
 					.getBlog(title)
 					.then( body => {
+
 						expect(body).to.not.eql(blogContent);
+						done();
 					})
 					.catch( e => done(e) );
-
-				done();
 			})
-			.catch( e => {
-				done(e.message);
-			});
+			.catch( e => done(e) );
 	});
-
 });
 
