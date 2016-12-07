@@ -38,14 +38,12 @@ describe('Blogs API', () => {
 		});
 	});
 
-
 	afterEach((done) => {
 
 		blogs
 			.deleteAll()
 			.then( _ => done());
 	});
-
 
 
 	it('should fetch the correct blog', (done) => {
