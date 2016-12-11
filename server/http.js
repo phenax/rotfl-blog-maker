@@ -4,7 +4,17 @@ const http= require('http');
 
 const app= require('../app');
 
-// TODO: Add clustering
-// TODO: Add https support
+const createServer= 
+	(callback=(() => {})) => 
+		http
+			.createServer((req, res) => app.onRequest(req, res))
+			.listen(
+				app.port || 8080, 
+				() => callback(app.port || 8080)
+			);
 
-http.createServer((req, res) => app.onRequest(req, res)).listen(app.port || 8080);
+if(require.main === module) {
+	createServer((port) => console.log(`Listening to port ${port}`));
+}
+
+module.exports= createServer;

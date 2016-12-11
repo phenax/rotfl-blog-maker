@@ -1,9 +1,5 @@
 
 const NodeApp= require('./lib/BlogApp');
-// const Blogs= require('./lib/Blogs');
-
-// Blogs.addBlog('My Third Blog', '# Just Testing\n\nAwesomeness awaits\n');
-
 
 class App extends NodeApp {
 
@@ -17,15 +13,13 @@ class App extends NodeApp {
 
 	indexController() {
 
-		this
-			.renderFile('./index.html')
+		this.renderFile('./index.html')
 			.catch(e => this.triggerError(500, e));
 	}
 
 	adminController() {
 
-		this
-			.render('AdminPanel')
+		this.render('AdminPanel')
 			.catch(e => this.triggerError(500, e));
 	}
 
