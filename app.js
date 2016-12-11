@@ -12,15 +12,21 @@ class App extends NodeApp {
 
 		this.onError(this.errorHandler)
 			.addRoute(/^\/$/, this.indexController)
-			.addRoute(/^\/blog(\/(.*))?$/, this.blogController);
+			.addRoute(/^\/admin(\/(.*))?$/, this.adminController);
 	}
 
-	indexController(req, res) {
-		res.end('Index route');
+	indexController() {
+
+		this
+			.renderFile('./index.html')
+			.catch(e => this.triggerError(500, e));
 	}
 
-	blogController(req, res) {
-		res.end('Blog zone');
+	adminController() {
+
+		this
+			.render('AdminPanel')
+			.catch(e => this.triggerError(500, e));
 	}
 
 	errorHandler(req, res) {
