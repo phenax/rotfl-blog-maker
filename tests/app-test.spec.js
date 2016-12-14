@@ -6,10 +6,10 @@ const { expect }= require('chai');
 const app= require('../app');
 
 
-describe('BlogApp', () => {
+describe('App', () => {
 
 	// Make sure everything is ready to go
-	describe('App Configuration', () => {
+	describe('Configuration', () => {
 
 		it('should have port', () => {
 
@@ -37,7 +37,7 @@ describe('BlogApp', () => {
 
 
 	// All routing functionality works
-	describe('App Router', () => {
+	describe('Router', () => {
 
 		const darkSideCtrlr= (req, res) => {};
 

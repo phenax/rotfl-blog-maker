@@ -18,6 +18,21 @@ describe('Blog Creator', () => {
 
 			expect(blogs.filterTitle('SD"F\'D\/G/D')).to.eql('sdfd_g_d');
 		});
+
+		it('should create a random string of fixed length', () => {
+
+			const random= blogs.getRandomHash();
+
+			expect(random).to.be.a('string');
+
+			expect(random).to.not.be.empty;
+
+			expect(random).to.not.eql(blogs.getRandomHash());
+
+			// To make sure it always has the same length
+			for(let i= 0; i< 20; i++)
+				expect(blogs.getRandomHash()).to.have.length(random.length);
+		});
 	});
 
 
