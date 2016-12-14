@@ -15,21 +15,26 @@ class App extends NodeApp {
 	// controller for the index route
 	indexController() {
 
+		console.time('IndexRender');
+
 		this.renderFile('./index.html')
+			.then(() => console.timeEnd('IndexRender'))
 			.catch(e => this.triggerError(500, e));
 	}
 
 	// controller for the /admin route
 	adminController() {
 
+		console.time('AdminRender');
+
 		this.render('AdminPanel')
+			.then(() => console.timeEnd('AdminRender'))
 			.catch(e => this.triggerError(500, e));
 	}
 
 	// error handling route
-	errorHandler(req, res) {
-		res.writeHead(404);
-		res.end('Error happens dude. Calm down.');
+	errorHandler() {
+		this.send('404 Error!! Please remain calm.', 400);
 	}
 }
 
