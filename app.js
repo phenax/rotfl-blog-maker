@@ -61,7 +61,7 @@ class App extends NodeApp {
 
 		console.time('BlogRender');
 
-		const blogName= this.getTitleFromURL(req.url);
+		const blogName= this.getTitleFromURL(req.path.pathname);
 
 		this.render('BlogLayout', { blogName })
 			.then(() => console.timeEnd('BlogRender'))
