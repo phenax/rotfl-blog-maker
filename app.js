@@ -8,37 +8,39 @@ class App extends NodeApp {
 	constructor(config) {
 		super(config);
 
-		this.apiCtrlrs= {
-			addBlog(req) {
-
-				const title= req.path.queryobj.title;
-				const content= req.path.queryobj.content;
-
-				blog.addBlog(title, content, (err, title) => {
-
-					if(err) {
-						return this.sendJSON({
-							status: false,
-							message: err.message
-						});
-					}
-
-					this.sendJSON({
-						status: true,
-						message: `Blog:${title} posted successfully`
-					});
-				});
-
-			}
-		};
+		this.apiCtrlrs= this;
 
 		// Routes config
 		this.onError(this.errorHandler)
 			.addRoute(/^\/$/, this.indexController)
 			.addRoute(/^\/admin(\/(.*))?$/, this.adminController)
-			.addRoute(/^\/api\/blog\/add/, this.apiCtrlrs.addBlog)
-			.addRoute(/^\/blog\/(.*)?$/, this.blogController);
+			.addRoute(/^\/blog\/(.*)?$/, this.blogController)
+			.addRoute(/^\/api\/blog\/add/, this.apiCtrlrs.addBlog);
 	}
+
+
+	addBlog(req) {
+
+		const title= req.path.queryobj.title;
+		const content= req.path.queryobj.content;
+
+		blog.addBlog(title, content, (err, title) => {
+
+			if(err) {
+				return this.sendJSON({
+					status: false,
+					message: err.message
+				});
+			}
+
+			this.sendJSON({
+				status: true,
+				message: `Blog:${title} posted successfully`
+			});
+		});
+
+	}
+
 
 	// controller for the index route
 	indexController() {
