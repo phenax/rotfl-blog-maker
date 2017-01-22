@@ -25,12 +25,12 @@ class App extends NodeApp {
 
 	blogController() {
 
-		console.time('IndexRender');
+		console.time('BlogRender');
 
 		const blogName= 'hello-world';
 
 		this.render('BlogLayout', { blogName })
-			.then(() => console.timeEnd('IndexRender'))
+			.then(() => console.timeEnd('BlogRender'))
 			.catch(e => this.triggerError(404, e));
 	}
 

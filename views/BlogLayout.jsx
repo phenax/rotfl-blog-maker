@@ -1,19 +1,27 @@
 
 import React from 'react';
+import blog from '../lib/Blogs';
 
 import Blog from './components/Blog.jsx';
 
+
 export default class BlogLayout extends React.Component {
 
-	getContents(blogName) {
+	getBlog() {
+		let blogContent;
 
-		
+		try {
+			blogContent= blog.getBlogSync(this.props.blogName);
+		} catch(e) {
+			throw new Error('File not found');
+		}
 
+		return blogContent;
 	}
 
 	render() {
 
-		const content= this.getContents(this.props.blogName);
+		const content= this.getBlog();
 
 		return (
 			<html>
