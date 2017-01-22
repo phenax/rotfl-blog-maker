@@ -19,13 +19,16 @@ class App extends NodeApp {
 	}
 
 
+	// API ROUTE for adding blogs
 	addBlog(req) {
 
 		const title= req.path.queryobj.title;
 		const content= req.path.queryobj.content;
 
+		// Add a blog
 		blog.addBlog(title, content, (err, title) => {
 
+			// For error
 			if(err) {
 				return this.sendJSON({
 					status: false,
@@ -33,6 +36,7 @@ class App extends NodeApp {
 				});
 			}
 
+			// Success message
 			this.sendJSON({
 				status: true,
 				message: `Blog:${title} posted successfully`
@@ -52,6 +56,7 @@ class App extends NodeApp {
 			.catch(e => this.triggerError(500, e));
 	}
 
+	// controller for /blog/blog-name routes
 	blogController(req) {
 
 		console.time('BlogRender');

@@ -11,3 +11,7 @@ export default class Blog extends React.Component {
 		);
 	}
 }
+
+Blog.propTypes= {
+	content: React.PropTypes.string.isRequired
+};

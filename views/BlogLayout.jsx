@@ -13,7 +13,7 @@ export default class BlogLayout extends React.Component {
 		try {
 			blogContent= blog.getBlogSync(this.props.blogName);
 		} catch(e) {
-			throw new Error('File not found');
+			throw new Error('Blog not found');
 		}
 
 		return blogContent;
@@ -35,3 +35,7 @@ export default class BlogLayout extends React.Component {
 		);
 	}
 }
+
+BlogLayout.propTypes= {
+	blogName: React.PropTypes.string.isRequired
+};
