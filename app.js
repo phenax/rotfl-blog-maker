@@ -6,10 +6,17 @@ class App extends NodeApp {
 	constructor(config) {
 		super(config);
 
+		this.apiCtrlrs= {
+			addBlog() {
+				
+			}
+		};
+
 		// Routes config
 		this.onError(this.errorHandler)
 			.addRoute(/^\/$/, this.indexController)
 			.addRoute(/^\/admin(\/(.*))?$/, this.adminController)
+			.addRoute(/^\/api\/blog\/add$/, this.apiCtrlrs.addBlog)
 			.addRoute(/^\/blog\/(.*)?$/, this.blogController);
 	}
 
@@ -27,7 +34,7 @@ class App extends NodeApp {
 
 		console.time('BlogRender');
 
-		const blogName= 'hello-world';
+		const blogName= this.getTitleFromURL();
 
 		this.render('BlogLayout', { blogName })
 			.then(() => console.timeEnd('BlogRender'))
