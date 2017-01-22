@@ -1,7 +1,7 @@
 
 import React from 'react';
-import blog from '../lib/Blogs';
 
+import blog from '../lib/Blogs';
 import Blog from './components/Blog.jsx';
 
 

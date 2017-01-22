@@ -1,14 +1,34 @@
 
 const NodeApp= require('./lib/BlogApp');
 
+const blog= require('./lib/Blogs');
+
 class App extends NodeApp {
 
 	constructor(config) {
 		super(config);
 
 		this.apiCtrlrs= {
-			addBlog() {
-				
+			addBlog(req) {
+
+				const title= req.path.queryobj.title;
+				const content= req.path.queryobj.content;
+
+				blog.addBlog(title, content, (err, title) => {
+
+					if(err) {
+						return this.sendJSON({
+							status: false,
+							message: err.message
+						});
+					}
+
+					this.sendJSON({
+						status: true,
+						message: `Blog:${title} posted successfully`
+					});
+				});
+
 			}
 		};
 
@@ -16,7 +36,7 @@ class App extends NodeApp {
 		this.onError(this.errorHandler)
 			.addRoute(/^\/$/, this.indexController)
 			.addRoute(/^\/admin(\/(.*))?$/, this.adminController)
-			.addRoute(/^\/api\/blog\/add$/, this.apiCtrlrs.addBlog)
+			.addRoute(/^\/api\/blog\/add/, this.apiCtrlrs.addBlog)
 			.addRoute(/^\/blog\/(.*)?$/, this.blogController);
 	}
 
@@ -30,11 +50,11 @@ class App extends NodeApp {
 			.catch(e => this.triggerError(500, e));
 	}
 
-	blogController() {
+	blogController(req) {
 
 		console.time('BlogRender');
 
-		const blogName= this.getTitleFromURL();
+		const blogName= this.getTitleFromURL(req.url);
 
 		this.render('BlogLayout', { blogName })
 			.then(() => console.timeEnd('BlogRender'))
