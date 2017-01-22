@@ -9,7 +9,8 @@ class App extends NodeApp {
 		// Routes config
 		this.onError(this.errorHandler)
 			.addRoute(/^\/$/, this.indexController)
-			.addRoute(/^\/admin(\/(.*))?$/, this.adminController);
+			.addRoute(/^\/admin(\/(.*))?$/, this.adminController)
+			.addRoute(/^\/blog\/(.*)?$/, this.blogController);
 	}
 
 	// controller for the index route
@@ -20,6 +21,17 @@ class App extends NodeApp {
 		this.renderFile('./index.html')
 			.then(() => console.timeEnd('IndexRender'))
 			.catch(e => this.triggerError(500, e));
+	}
+
+	blogController() {
+
+		console.time('IndexRender');
+
+		const blogName= 'hello-world';
+
+		this.render('BlogLayout', { blogName })
+			.then(() => console.timeEnd('IndexRender'))
+			.catch(e => this.triggerError(404, e));
 	}
 
 	// controller for the /admin route
