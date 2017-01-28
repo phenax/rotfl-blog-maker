@@ -1,8 +1,10 @@
 
 import React from 'react';
 
-import blog from '../lib/Blogs';
 import Blog from './components/Blog.jsx';
+import Default from './components/Default.jsx';
+
+import blog from '../lib/Blogs';
 
 
 export default class BlogLayout extends React.Component {
@@ -13,7 +15,7 @@ export default class BlogLayout extends React.Component {
 		try {
 			blogContent= blog.getBlogSync(this.props.blogName);
 		} catch(e) {
-			throw new Error('Blog not found');
+			throw new BlogLayout.BlogNotFoundError();
 		}
 
 		return blogContent;
@@ -24,17 +26,18 @@ export default class BlogLayout extends React.Component {
 		const content= this.getBlog();
 
 		return (
-			<html>
-				<head>
-					<title>Blog</title>
-				</head>
-				<body>
-					<Blog content={content} />
-				</body>
-			</html>
+			<Default>
+				<Blog content={content} />
+			</Default>
 		);
 	}
 }
+
+BlogLayout.BlogNotFoundError= class extends Error {
+	constructor() {
+		super('Blog not found');
+	}
+};
 
 BlogLayout.propTypes= {
 	blogName: React.PropTypes.string.isRequired
