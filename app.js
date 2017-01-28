@@ -11,7 +11,8 @@ class App extends NodeApp {
 		this.apiCtrlrs= this;
 
 		// Routes config
-		this.onError(this.errorHandler)
+		this
+			.onError(this.errorHandler)
 			.addRoute(/^\/$/, this.indexController)
 			.addRoute(/^\/admin(\/(.*))?$/, this.adminController)
 			.addRoute(/^\/blog\/(.*)?$/, this.blogController)
@@ -22,8 +23,8 @@ class App extends NodeApp {
 	// API ROUTE for adding blogs
 	addBlog(req) {
 
-		const title= req.path.queryobj.title;
-		const content= req.path.queryobj.content;
+		const title= (req.path.queryobj.title);
+		const content= (req.path.queryobj.content);
 
 		// Add a blog
 		blog.addBlog(title, content, (err, title) => {
