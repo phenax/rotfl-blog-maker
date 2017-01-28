@@ -8,16 +8,22 @@ class App extends NodeApp {
 	constructor(config) {
 		super(config);
 
-		this.apiCtrlrs= this;
+		this.API_ROUTES= this;
 
-		// Routes config
+		// API routes
+		this
+			.addRoute(/^\/api\/blog\/add/, this.API_ROUTES.addBlog);
+
+		// Admin panel routes
+		this
+			.addRoute(/^\/admin(\/(.*))?$/, this.adminRoute);
+
+		// Other routes
 		this
 			.onError(this.errorHandler)
 			.addRoute(/^\/$/, this.indexRoute)
-			.addRoute(/^\/admin(\/(.*))?$/, this.adminRoute)
-			.addRoute(/^\/blogs\/(.*)?$/, this.blogRoute)
 			.addRoute(/^\/blogs$/, this.blogsListRoute)
-			.addRoute(/^\/api\/blog\/add/, this.apiCtrlrs.addBlog);
+			.addRoute(/^\/blogs\/(.*)?$/, this.blogRoute);
 	}
 
 
@@ -55,12 +61,13 @@ class App extends NodeApp {
 
 	blogsListRoute() {
 
-		const blogs= [
-			{ title: 'coool', content: 'Awesome ness' },
-			{ title: 'aw-6', content: 'Lorem ipsum bullshit' }
-		];
+		console.time('BlogsListingRender');
 
-		this.render('BlogIndexLayout', { blogs });
+		const blogs= blog.getAllBlogs();
+
+		this.render('BlogIndexLayout', { blogs })
+			.then(() => console.timeEnd('BlogsListingRender'))
+			.catch(e => this.triggerError(500, e));
 	}
 
 

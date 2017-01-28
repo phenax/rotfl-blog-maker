@@ -9,12 +9,13 @@ export default class BlogIndexLayout extends React.Component {
 	render() {
 		return (
 			<Default>
-				{this.props.blogs.map((blog, i) => <Blog key={i} {...blog} />)}
+				<div>{this.props.blogs.length} blog posts</div>
+				<div>{this.props.blogs.blogs.map((blog, i) => <Blog key={i} {...blog} />)}</div>
 			</Default>
 		);
 	}
 }
 
 BlogIndexLayout.propTypes= {
-	blogs: React.PropTypes.array.isRequired
+	blogs: React.PropTypes.object.isRequired
 };
