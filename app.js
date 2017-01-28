@@ -13,42 +13,37 @@ class App extends NodeApp {
 		// Routes config
 		this
 			.onError(this.errorHandler)
-			.addRoute(/^\/$/, this.indexController)
-			.addRoute(/^\/admin(\/(.*))?$/, this.adminController)
-			.addRoute(/^\/blog\/(.*)?$/, this.blogController)
+			.addRoute(/^\/$/, this.indexRoute)
+			.addRoute(/^\/admin(\/(.*))?$/, this.adminRoute)
+			.addRoute(/^\/blogs\/(.*)?$/, this.blogRoute)
+			.addRoute(/^\/blogs$/, this.blogsListRoute)
 			.addRoute(/^\/api\/blog\/add/, this.apiCtrlrs.addBlog);
 	}
 
 
-	// API ROUTE for adding blogs
+	// API ROUTE for adding new blogs
 	addBlog(req) {
 
 		const title= (req.path.queryobj.title);
 		const content= (req.path.queryobj.content);
 
 		// Add a blog
-		blog.addBlog(title, content, (err, title) => {
-
-			// For error
-			if(err) {
-				return this.sendJSON({
-					status: false,
-					message: err.message
-				});
-			}
-
-			// Success message
-			this.sendJSON({
+		blog
+			.addBlog(title, content)
+			.then(title => this.sendJSON({
 				status: true,
 				message: `Blog:${title} posted successfully`
-			});
-		});
+			}))
+			.catch(e => this.sendJSON({
+				status: false,
+				message: e.message
+			}));
 
 	}
 
 
-	// controller for the index route
-	indexController() {
+	// index route
+	indexRoute() {
 
 		console.time('IndexRender');
 
@@ -57,11 +52,18 @@ class App extends NodeApp {
 			.catch(e => this.triggerError(500, e));
 	}
 
-	// controller for /blog/blog-name routes
-	blogController(req) {
+
+	blogsListRoute() {
+		
+	}
+
+
+	// Route for /blogs/:blog_name routes
+	blogRoute(req) {
 
 		console.time('BlogRender');
 
+		// Get the blog title
 		const blogName= this.getTitleFromURL(req.path.pathname);
 
 		this.render('BlogLayout', { blogName })
@@ -69,8 +71,8 @@ class App extends NodeApp {
 			.catch(e => this.triggerError(404, e));
 	}
 
-	// controller for the /admin route
-	adminController() {
+	// Route for the /admin route
+	adminRoute() {
 
 		console.time('AdminRender');
 
