@@ -54,7 +54,13 @@ class App extends NodeApp {
 
 
 	blogsListRoute() {
-		
+
+		const blogs= [
+			{ title: 'coool', content: 'Awesome ness' },
+			{ title: 'aw-6', content: 'Lorem ipsum bullshit' }
+		];
+
+		this.render('BlogIndexLayout', { blogs });
 	}
 
 
